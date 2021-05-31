@@ -15,10 +15,50 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from . import views
-
+from django.conf.urls.static import static
+from django.conf import settings
+from . import views as project_views
+from django.contrib.auth import views as auth_views
 urlpatterns = [
-    path("", views.home, name="home"),
-    path('admin/', admin.site.urls),
+    path("", project_views.home, name="home"),
     path('accounts/', include('accounts.urls')),
-]
+
+    
+    # Authentication
+
+    # Enter email and get a token in your inbox
+     path("password-reset/", 
+        auth_views.PasswordResetView.as_view(template_name="accounts/password-reset.html"), 
+        name="password_reset"
+    ),
+    # Notice page for password successful reset form submission
+    path("password-reset/done/", 
+        auth_views.PasswordResetDoneView.as_view(template_name="accounts/password-reset-done.html"), 
+        name="password_reset_done"
+    ),
+    
+    # Endpoint for updating password
+    path("password-reset-confirm/<uidb64>/<token>/", 
+        auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password-reset-confirm.html"), 
+        name="password_reset_confirm"
+    ),
+    # Notify user if password was successfully updated
+     path("password-reset-complete/", 
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="accounts/password-reset-complete.html"
+        ), 
+        name="password_reset_complete"
+    ),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
+] 
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.STATIC_URL,
+        document_root=settings.STATIC_ROOT
+    )
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

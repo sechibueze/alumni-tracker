@@ -1,8 +1,22 @@
 from django.urls import path
-from . import views
+from django.utils.translation import templatize
+from . import views as account_view
+
+# Namespace
+app_name = "accounts"
 
 urlpatterns = [
-    path("", views.index, name="accounts"),
-    path("signup/", views.signup, name="signup"),
-    path("login/", views.login, name="login"),
+    path("", account_view.index, name="accounts_home"),
+    path("profile/", 
+        account_view.get_account_profile, 
+        name="account_profile"
+    ),
+    path("update-profile/", 
+        account_view.update_account_profile, 
+        name="update_account_profile"
+    ),
+    path("signup/", account_view.signup, name="signup"),
+    path("login/", account_view.login, name="login"),
+    path("logout/", account_view.logout, name="logout"),
+
 ]
