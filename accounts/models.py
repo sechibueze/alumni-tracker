@@ -1,3 +1,4 @@
+from pathways.models import Pathway
 from django.contrib.auth.models import User
 from django.db import models
 # Create your models here.
@@ -13,6 +14,10 @@ class Profile(models.Model):
         on_delete=models.CASCADE
     )
     bio = models.TextField()
+    pathway = models.ForeignKey(
+        Pathway, null=False, blank=False, 
+        on_delete=models.CASCADE
+    )
 
     def __str__(self) -> str:
         return f"{ self.user.username }'s profile info"

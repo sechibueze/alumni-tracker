@@ -22,6 +22,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("", project_views.home, name="home"),
     path('accounts/', include('accounts.urls')),
+    path('pathways/', include('pathways.urls')),
 
     
     # Authentication

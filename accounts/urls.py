@@ -11,6 +11,10 @@ urlpatterns = [
         account_view.get_account_profile, 
         name="account_profile"
     ),
+    path("profile/<profile_id>/", 
+        account_view.get_account_profile, 
+        name="view_alumni_profile"
+    ),
     path("update-profile/", 
         account_view.update_account_profile, 
         name="update_account_profile"

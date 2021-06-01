@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from collections import defaultdict
 from pathlib import Path
 from decouple import config
-import dj_database_url
+# import dj_database_url
+import django_heroku
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 
     # AlumniTracker custom apps
     'accounts.apps.AccountsConfig',
+    'pathways.apps.PathwaysConfig',
 ]
 
 MIDDLEWARE = [
@@ -90,10 +92,10 @@ DATABASES = {
     # )
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'AlumniTracker',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -167,3 +169,6 @@ LOGIN_URL = "accounts:login"
 # Media assets config for file storage
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "/media/"
+
+# Heroku specific requirements
+django_heroku.settings(locals())

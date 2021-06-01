@@ -14,9 +14,13 @@ def index(request):
     return render(request, "accounts/index.html")
 
 @login_required
-def get_account_profile(request):
+def get_account_profile(request, profile_id=""):
+    print("Alumni profile id", profile_id)
     try:
-        profile = Profile.objects.get(user=request.user.id)
+        if profile_id:
+            profile = Profile.objects.get(pk=profile_id)
+        else:
+            profile = Profile.objects.get(user=request.user.id)
     except Profile.DoesNotExist:
         profile = None
     

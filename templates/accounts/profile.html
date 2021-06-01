@@ -11,17 +11,22 @@
     {{ profile.user.first_name }}{{" "}} {{ profile.user.last_name }}
   </h3>
   <div>
-    <p>{{ profile.user.email }}</p>
+    <p>
+      <span>{{ profile.user.email }}</span> &nbsp;&nbsp; | &nbsp;&nbsp;
+      <span>{{ profile.pathway.title }}</span>
+    </p>
   </div>
   <article class="profile-bio">
     <span class="field-label">Bio:</span> {{ profile.bio }}
   </article>
   <div class="profile-cta">
+    {% if profile.user.id == user.id %}
     <a
       class="btn btn-primary"
       href="{% url 'accounts:update_account_profile' %}"
       >Update
     </a>
+    {% endif %}
   </div>
 </div>
 {% else %}
