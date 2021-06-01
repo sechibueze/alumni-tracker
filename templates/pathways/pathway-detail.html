@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block content %} {% if pathway_info %}
+<div class="pathways-list">
+  <h1>{{ pathway_info.title }}</h1>
+  <article>{{ pathway_info.description }}</article>
+</div>
+<div>
+  {% if pathway_profiles %}
+  <div>{{ pathway_profiles|length }} people</div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for profile in pathway_profiles %}
+      <tr>
+        <td>
+          <a href="{% url 'accounts:view_alumni_profile' profile.id %}">
+            {{ profile.id }}
+          </a>
+        </td>
+        <td>{{ profile.user.first_name }}</td>
+        <td>{{ profile.user.last_name }}</td>
+        <td>{{ profile.user.email }}</td>
+        <td>{{ profile.user.username }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h1>No Alumni in this pathway</h1>
+  {% endif %}
+</div>
+{% else %}
+<div class="pathways-list">
+  <h1>No pathway info, ask admin to create one</h1>
+</div>
+{% endif %} {% endblock content %}

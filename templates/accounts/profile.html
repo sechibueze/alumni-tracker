@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %} {% if profile %}
+<div class="user-profile">
+  <p>Profile of @{{user.username}}</p>
+  <!-- <div class="profile-page-wrapper"> -->
+  <img
+    class="profile-picture"
+    alt="{{ user.id }}"
+    src="{{ profile.image.url }}"
+  />
+  <h3 class="profile-name">
+    {{ profile.user.first_name }}{{" "}} {{ profile.user.last_name }}
+  </h3>
+  <div>
+    <p>
+      <span>{{ profile.user.email }}</span> &nbsp;&nbsp; | &nbsp;&nbsp;
+      <span>{{ profile.pathway.title }}</span>
+    </p>
+  </div>
+  <article class="profile-bio">
+    <span class="field-label">Bio:</span> {{ profile.bio }}
+  </article>
+  <div class="profile-cta">
+    {% if profile.user.id == user.id %}
+    <a
+      class="btn btn-primary"
+      href="{% url 'accounts:update_account_profile' %}"
+      >Update
+    </a>
+    {% endif %}
+  </div>
+</div>
+{% else %}
+<div class="user-profile">
+  <h1>
+    No profile,
+    <a
+      href="{% url 'accounts:update_account_profile' %}"
+      style="text-decoration: underline"
+      >create</a
+    >
+    your profile
+  </h1>
+
+  <div class="profile-cta">
+    <a
+      class="btn btn-primary"
+      href="{% url 'accounts:update_account_profile' %}"
+      >Create profile
+    </a>
+  </div>
+</div>
+{% endif %} {% endblock content %}

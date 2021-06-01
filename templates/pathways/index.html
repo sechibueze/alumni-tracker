@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block content %} {% if pathways %}
+<div class="pathways-list">
+  <h1>Found pathways</h1>
+  <table>
+    <thead>
+      <tr>
+        <td>Career pathways</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pathway in pathways %}
+      <tr>
+        <td>
+          <a href="{% url 'pathways:pathway_detail' pathway.id %}">
+            {{ pathway.title }}
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="pathways-list">
+  <h1>No pathway, ask admin to create one</h1>
+</div>
+{% endif %} {% endblock content %}

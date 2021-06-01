@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="logo">
+    <a href="{% url 'home' %}" class="logo-text">Alumni Tracker</a>
+  </div>
+
+  <div class="auth-links">
+    {% if user.is_authenticated %}
+    <a href="{% url 'accounts:account_profile' %}">
+      Profile ({{user.username}})
+    </a>
+    <a href="{% url 'pathways:pathways_list' %}"> Pathways </a>
+    <a href="{% url 'accounts:update_account_profile' %}"> Update account </a>
+    <a href="{% url 'accounts:logout' %}">Log out</a>
+    {% else %}
+    <a href="{% url 'accounts:signup' %}">Register</a>
+    <a href="{% url 'accounts:login' %}">Login</a>
+    {% endif %}
+  </div>
+</nav>
